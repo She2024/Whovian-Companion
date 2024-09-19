@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 
 from init import db, ma, bcrypt, jwt
@@ -6,8 +7,8 @@ from init import db, ma, bcrypt, jwt
 
 def creeate_app():
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] ="postgressql+psycopg2://whovian_dev:123456@localllhoost:554432/whovian_db"
-    app.config["Jwt_SECRET_KEY"] = "secret"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+    app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
 
     db.init_app(app)
     ma.init_app(app)
