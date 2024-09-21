@@ -1,3 +1,5 @@
 __pycahe__
 .venv
 .env
+src/.venv
+.vscode

@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/she2024/webdev2024/API/Whovian_Companion/.venv"
+set -gx VIRTUAL_ENV "/home/she2024/webdev2024/API/Whovian_Companion/src/.venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
