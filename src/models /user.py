@@ -2,7 +2,7 @@ from init import db, ma
 
 class User (db.Model):
     #table name
-    __Tablename__= "users"
+    __tablename__= "users"
 
     # attributes of table
     id = db.Column(db.Integer, primary_key=True)

@@ -3,6 +3,8 @@ import os
 
 from flask import Flask
 
+from controllers.cli_controllers import db_commands
+
 from init import db, ma, bcrypt, jwt
 
 # Application factories
@@ -17,6 +19,8 @@ def create_app():
     bcrypt.init_app(app)   
     jwt.init_app(app)
 
+    app.register_blueprint(db_commands)
+    
     return app
 
 
