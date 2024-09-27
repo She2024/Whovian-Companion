@@ -1,6 +1,6 @@
 from datetime import timedelta
 from flask import Blueprint, request
-from sqlalchemy import VARCHAR
+
 from models.user import User, user_schema, UserSchema
 from init import bcrypt, db
 
@@ -47,7 +47,7 @@ def login_user():
     # If user exists and pw is correct
     if user and bcrypt.check_password_hash(user.password, body_data.get("password")):
         # create JWT
-        token = create_access_token(identity=VARCHAR(user.id), expires_delta=timedelta(days=1))
+        token = create_access_token(identity=str(user.id), expires_delta=timedelta(days=1))
         # Respond back
         return {"email": user.email, "is_admin": user.is_admin, "token": token}
     # Else
