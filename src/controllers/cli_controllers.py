@@ -1,6 +1,10 @@
+from datetime import date
+
 from flask import Blueprint
 from init import db, bcrypt
 from models.user import User
+from models.my_library import MyLibrary
+
 
 db_commands = Blueprint("db", __name__)
 
@@ -24,6 +28,27 @@ def seed_tables():
             email = "usera@email.com",
             password = bcrypt.generate_password_hash("123456").decode("utf-8")
         )
+    ]
+
+    my_library = [
+        MyLibrary(
+            title = "Dalek",
+            episodeNumber = "700",
+            date = date.today(),
+            user = users[0],
+        ), 
+        MyLibrary(
+            title = "The Angels Take Manhattan",
+            episodeNumber = "777",
+            date = date.today(),
+            user = users[1],
+        ),
+        MyLibrary(
+            title = "Ascension of the Cybermen",
+            episodeNumber = "840",
+            date = date.today(),
+            user = users[1],
+        ),
     ]
 
 @db_commands.cli.command("seed")

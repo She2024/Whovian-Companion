@@ -1,6 +1,6 @@
 from sqlalchemy import Column
 from init import db, ma
-from marshmallow import fields, validates
+from marshmallow import fields
 #
 
 # Create a Model of a table

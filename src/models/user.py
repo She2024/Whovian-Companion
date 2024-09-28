@@ -1,6 +1,8 @@
 from init import db, ma
 from marshmallow import fields
 
+from models.my_library import MyLibrary
+
 
 class User (db.Model):
     #table name
@@ -12,6 +14,8 @@ class User (db.Model):
     email = db.Column(db.VARCHAR(100), nullable=False, unique=True)
     password = db.Column(db.VARCHAR, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
+
+    my_library =db.relationship("MyLibrary", back_populates="user")
 
 class UserSchema(ma.Schema):
     class Meta:
