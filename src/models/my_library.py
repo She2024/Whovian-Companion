@@ -1,7 +1,7 @@
 from sqlalchemy import Column
 from init import db, ma
 from marshmallow import fields, validates
-from src.models import my_library
+#
 
 # Create a Model of a table
 class MyLibrary(db.Model):
@@ -16,15 +16,17 @@ class MyLibrary(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
+    user = db.relationship('User', back_populates='my_library')
+
 class MyLibrarySchema(ma.Schema):
     user = fields.List(fields.Nested('UserSchema', only=["id", "name", "email"]))
     class Meta:
-        fields = ("id", "title", "episode_number", "date", "user_id")
+        fields = ("id", "title", "episode_number", "date", "user")
 
 my_library_schema = MyLibrarySchema()
-my_library_schema = MyLibrarySchema(many=True)    
+my_libraries_schema = MyLibrarySchema(many=True)    
    
 
-my_library = db.relationship('User', back_populates='MyLibrary') 
-comments = db.relationship('Comment', back_populates='card', cascade="all, delete")
+#my_library =  db.relationship('User', back_populates='my_library')
+#comments = db.relationship('Comment', back_populates='card', cascade="all, delete")
     

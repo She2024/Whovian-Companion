@@ -1,6 +1,7 @@
 from init import db, ma
 from marshmallow import fields
 
+
 class User (db.Model):
     #table name
     __tablename__= "users"
@@ -14,7 +15,8 @@ class User (db.Model):
 
 class UserSchema(ma.Schema):
     class Meta:
-        cards = fields.Nested('MyLibrary', exclude=["user"])
+        my_library = fields.List(fields.Nested('MyLibrarySchema', exclude=["user"]))
+
         fields = ("id", "name", "email", "password", "is_admin", "my_library")
         
 
