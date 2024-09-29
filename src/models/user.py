@@ -1,4 +1,8 @@
 from init import db, ma
+from marshmallow import fields
+
+from models.my_library import MyLibrary
+
 
 class User (db.Model):
     #table name
@@ -11,9 +15,13 @@ class User (db.Model):
     password = db.Column(db.VARCHAR, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
+    my_library = db.relationship("MyLibrary", back_populates="user")
+
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ("id", "name", "email", "password", "is_admin", "cards", "comments")
+        my_libraries = fields.List(fields.Nested('MyLibrarySchema', exclude=["user"]))
+
+        fields = ("id", "name", "email", "password", "is_admin", "my_library")
         
 
 # to handle a single user object, excludes password for privacy/security

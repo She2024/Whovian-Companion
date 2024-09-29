@@ -5,6 +5,7 @@ from flask import Flask
 
 from controllers.cli_controllers import db_commands
 from controllers.auth_controllers import auth_bp
+from controllers.my_library_controllers import my_library_bp
 
 
 from init import db, ma, bcrypt, jwt
@@ -20,10 +21,10 @@ def create_app():
     ma.init_app(app)
     bcrypt.init_app(app)   
     jwt.init_app(app)
-
+    
     app.register_blueprint(db_commands)
     app.register_blueprint(auth_bp)
-    
+    app.register_blueprint(my_library_bp)
     return app
 
 
