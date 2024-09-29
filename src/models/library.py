@@ -14,7 +14,7 @@ class Library(db.Model):
 
 class LibrarySchema(ma.Schema):
     episodes = fields.List(fields.Nested('EpisodeSchema', only=["id","title","episode_number","date"]))
-    user = fields.Nested('UserSchema', exclude=["library"])
+    user = fields.Nested('UserSchema', only=("id", "name", "email"))
     class Meta:
         fields = ("id", "user", "episodes")
 

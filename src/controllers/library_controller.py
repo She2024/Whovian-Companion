@@ -5,8 +5,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from init import db
 from models.library import Library, library_schema, libraries_schema
 
-library_bp = Blueprint("library", __name__, url_prefix="/library")
-
+library_bp = Blueprint("library", __name__, url_prefix="/libraries")
 
 # /library - GET - fetch all libary
 @library_bp.route("/")

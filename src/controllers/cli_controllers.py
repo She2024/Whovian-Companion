@@ -53,19 +53,19 @@ def seed_tables():
             title = "Episode 1",
             episode_number = 1,
             date = date.today(),
-            libraries = libraries[0]
+            libraries = [libraries[0], libraries[1]]
         ),
         Episode(
             title = "Episode 2",
             episode_number = 2,
             date = date.today(),
-            libraries = libraries[0]
+            libraries = [libraries[0]]
         ),
         Episode(
             title = "Episode 3",
             episode_number = 3,
             date = date.today(),
-            libraries = libraries[1]
+            libraries = [libraries[1]]
         )
     ]
 
