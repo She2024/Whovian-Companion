@@ -6,7 +6,7 @@ from init import bcrypt, db
 
 
 from sqlalchemy.exc import IntegrityError
-from psycopg2 import errorcodes
+# from psycopg2 import errorcodes
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
@@ -31,11 +31,12 @@ def register_user():
         # Return acknowledgement
         return user_schema.dump(user), 201
     except IntegrityError as err:
-        if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
-            return {"error": f"The column {err.orig.diag.column_name} is required"}, 400
-        if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
-            # unique violation
-            return {"error": "Email address must be unique"}, 400
+        # if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
+        #     return {"error": f"The column {err.orig.diag.column_name} is required"}, 400
+        # if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
+        #     # unique violation
+        #     return {"error": "Email address must be unique"}, 400
+        pass
         
 @auth_bp.route("/login", methods=["POST"])
 def login_user():

@@ -3,7 +3,8 @@ from datetime import date
 from flask import Blueprint
 from init import db, bcrypt
 from models.user import User
-from models.my_library import MyLibrary 
+from models.library import Library 
+from models.episode import Episode
 
 
 db_commands = Blueprint("db", __name__)
@@ -35,28 +36,40 @@ def seed_tables():
 
     db.session.add_all(users)
 
-    my_libraries = [
-        MyLibrary(
-            title = "Dalek",
-            episode_number =(700),
-            date = date.today(),
-            user = users[0],
+    libraries = [
+        Library(
+            user = users[0]
         ), 
-        MyLibrary(
-            title = "The Angels Take Manhattan",
-            episode_number = (777),
-            date = date.today(),
-            user = users[1],
-        ),
-        MyLibrary(
-            title = "Ascension of the Cybermen",
-            episode_number = (840),
-            date = date.today(),
-            user = users[1],
-        ),
+        Library(
+            user = users[1]
+        )
     ]       
 
-    db.session.add_all( my_libraries)
+    db.session.add_all(libraries)
+
+
+    episodes = [
+        Episode(
+            title = "Episode 1",
+            episode_number = 1,
+            date = date.today(),
+            libraries = libraries[0]
+        ),
+        Episode(
+            title = "Episode 2",
+            episode_number = 2,
+            date = date.today(),
+            libraries = libraries[0]
+        ),
+        Episode(
+            title = "Episode 3",
+            episode_number = 3,
+            date = date.today(),
+            libraries = libraries[1]
+        )
+    ]
+
+    db.session.add_all(episodes)
 
     db.session.commit()
 
