@@ -1,22 +1,31 @@
+from sqlalchemy import Column
 from init import db, ma
 from marshmallow import fields
-from models.library_episodes import library_episode_association
+#
 
-class Library(db.Model):
-    __tablename__ = "libraries"
+# Create a Model of a table
+class MyLibrary(db.Model):
+     # Define the name of the table
+    __tablename__ = "my_library"
+   # Define the Primary key
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+     # Define other attributes
+    title = db.Column(db.String, nullable=False)
+    episode_number = db,Column(db.Integer)
+    date = db.Column(db.Date) #date created
 
-    user = db.relationship("User", back_populates="library")
-    episodes = db.relationship("Episode", 
-        secondary=library_episode_association, back_populates="libraries")
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
+    user = db.relationship('User', back_populates='my_library')
 
-class LibrarySchema(ma.Schema):
-    episodes = fields.List(fields.Nested('EpisodeSchema', only=["id","title","episode_number","date"]))
-    user = fields.Nested('UserSchema', exclude=["library"])
+class MyLibrarySchema(ma.Schema):
+    user = fields.List(fields.Nested('UserSchema', only=["id", "name", "email"]))
     class Meta:
-        fields = ("id", "user", "episodes")
+        fields = ("id", "title", "episode_number", "date", "user")
 
-library_schema = LibrarySchema()
-libraries_schema = LibrarySchema(many=True)
+my_library_schema = MyLibrarySchema()
+my_libraries_schema = MyLibrarySchema(many=True)    
+   
+
+
+    

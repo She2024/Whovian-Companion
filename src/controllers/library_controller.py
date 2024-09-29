@@ -3,16 +3,17 @@ from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from init import db
-from models.library import Library, library_schema, libraries_schema
+from models.my_library import MyLibrary, my_library_schema, my_libraries_schema
 
-library_bp = Blueprint("library", __name__, url_prefix="/library")
+my_library_bp = Blueprint("my_library", __name__, url_prefix="/my_library")
 
 
 # /library - GET - fetch all libary
-@library_bp.route("/")
-def get_all_libraries():
-    libraries = Library.query.all()
-    return libraries_schema.dump(libraries)
+@my_library_bp.route("/")
+def get_all_my_libraries():
+    stmt = db.select(MyLibrary)
+    my_library = db.session.scalars(stmt)
+    return my_libraries_schema.dump(my_library)
 
 # /library/<id> - GET - fetch a specific library
 
