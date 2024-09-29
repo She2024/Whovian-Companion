@@ -3,7 +3,7 @@ from datetime import date
 from flask import Blueprint
 from init import db, bcrypt
 from models.user import User
-from models.my_library import MyLibrary
+from models.my_library import MyLibrary 
 
 
 db_commands = Blueprint("db", __name__)
@@ -14,42 +14,7 @@ def create_tables():
     db.create_all()
     print("Tables created!")
 
-@db_commands.cli.command("seed")
-def seed_tables():
-    # Create a list of User instances
-    users = [
-        User(
-            email = "admin@email.com",
-            password = bcrypt.generate_password_hash("123456").decode("utf-8"),
-            is_admin = True
-        ), 
-        User(
-            name = "User A",
-            email = "usera@email.com",
-            password = bcrypt.generate_password_hash("123456").decode("utf-8")
-        )
-    ]
-
-    my_library = [
-        MyLibrary(
-            title = "Dalek",
-            episodeNumber = "700",
-            date = date.today(),
-            user = users[0],
-        ), 
-        MyLibrary(
-            title = "The Angels Take Manhattan",
-            episodeNumber = "777",
-            date = date.today(),
-            user = users[1],
-        ),
-        MyLibrary(
-            title = "Ascension of the Cybermen",
-            episodeNumber = "840",
-            date = date.today(),
-            user = users[1],
-        ),
-    ]
+   
 
 @db_commands.cli.command("seed")
 def seed_tables():
@@ -69,6 +34,29 @@ def seed_tables():
 
 
     db.session.add_all(users)
+
+    my_libraries = [
+        MyLibrary(
+            title = "Dalek",
+            episode_number =(700),
+            date = date.today(),
+            user = users[0],
+        ), 
+        MyLibrary(
+            title = "The Angels Take Manhattan",
+            episode_number = (777),
+            date = date.today(),
+            user = users[1],
+        ),
+        MyLibrary(
+            title = "Ascension of the Cybermen",
+            episode_number = (840),
+            date = date.today(),
+            user = users[1],
+        ),
+    ]       
+
+    db.session.add_all( my_libraries)
 
     db.session.commit()
 

@@ -27,6 +27,5 @@ my_library_schema = MyLibrarySchema()
 my_libraries_schema = MyLibrarySchema(many=True)    
    
 
-#my_library =  db.relationship('User', back_populates='my_library')
-#comments = db.relationship('Comment', back_populates='card', cascade="all, delete")
+
     

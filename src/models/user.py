@@ -15,11 +15,11 @@ class User (db.Model):
     password = db.Column(db.VARCHAR, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
-    my_library =db.relationship("MyLibrary", back_populates="user")
+    my_library = db.relationship("MyLibrary", back_populates="user")
 
 class UserSchema(ma.Schema):
     class Meta:
-        my_library = fields.List(fields.Nested('MyLibrarySchema', exclude=["user"]))
+        my_libraries = fields.List(fields.Nested('MyLibrarySchema', exclude=["user"]))
 
         fields = ("id", "name", "email", "password", "is_admin", "my_library")
         
